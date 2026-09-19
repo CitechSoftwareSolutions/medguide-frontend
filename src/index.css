@@ -1,0 +1,468 @@
+:root {
+  --blue-700: #1546a0;
+  --blue-600: #1a73e8;
+  --blue-100: #e3edfd;
+  --blue-50: #f4f8ff;
+  --white: #ffffff;
+  --gray-600: #5f6b7a;
+  --gray-200: #dfe5ee;
+
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: #16202e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--blue-50);
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+/* ---------- Sidebar ---------- */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 260px;
+  flex-shrink: 0;
+  padding: 18px 14px;
+  background: var(--blue-700);
+  color: var(--white);
+}
+
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.sidebar__mark {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--white);
+  color: var(--blue-700);
+  font-size: 15px;
+}
+
+.sidebar__new {
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--white);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.sidebar__new:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.sidebar__list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.sidebar__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 9px 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--white);
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar__item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar__item--active {
+  background: var(--blue-600);
+}
+
+.sidebar__title {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar__meta {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.sidebar__note {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  opacity: 0.65;
+}
+
+/* ---------- Chat column ---------- */
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.chat__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 28px;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.chat__heading {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--blue-700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chat__session {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--gray-600);
+  font-family: ui-monospace, monospace;
+}
+
+.chat__messages {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 28px;
+}
+
+.chat__empty {
+  margin: auto;
+  max-width: 420px;
+  text-align: center;
+  color: var(--gray-600);
+}
+
+.chat__empty h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: var(--blue-700);
+}
+
+.chat__empty p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ---------- Bubbles ---------- */
+
+.bubble {
+  max-width: 72%;
+  padding: 12px 15px;
+  border-radius: 14px;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.bubble--user {
+  align-self: flex-end;
+  background: var(--blue-600);
+  color: var(--white);
+  border-bottom-right-radius: 4px;
+  white-space: pre-wrap;
+}
+
+.bubble--assistant {
+  align-self: flex-start;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-bottom-left-radius: 4px;
+}
+
+.bubble--error {
+  background: #fff5f5;
+  border-color: #f3c9c9;
+  color: #8f2c2c;
+}
+
+.bubble--thinking {
+  color: var(--gray-600);
+  font-style: italic;
+}
+
+/* ---------- Rendered markdown inside an assistant bubble ---------- */
+
+/* The agent replies in markdown. Spacing is collapsed at the edges so a
+   bubble never opens or closes with stray blank space. */
+.markdown > *:first-child {
+  margin-top: 0;
+}
+
+.markdown > *:last-child {
+  margin-bottom: 0;
+}
+
+.markdown p {
+  margin: 0 0 10px;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  margin: 16px 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--blue-700);
+}
+
+.markdown strong {
+  font-weight: 700;
+  color: var(--blue-700);
+}
+
+.markdown em {
+  font-style: italic;
+}
+
+.markdown ul,
+.markdown ol {
+  margin: 0 0 10px;
+  padding-left: 22px;
+}
+
+.markdown li {
+  margin-bottom: 4px;
+}
+
+.markdown li::marker {
+  color: var(--blue-600);
+}
+
+.markdown a {
+  color: var(--blue-600);
+}
+
+.markdown code {
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: var(--blue-50);
+  font-family: ui-monospace, monospace;
+  font-size: 0.9em;
+}
+
+.markdown pre {
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--blue-50);
+  overflow-x: auto;
+}
+
+.markdown pre code {
+  padding: 0;
+  background: none;
+}
+
+.markdown blockquote {
+  margin: 0 0 10px;
+  padding-left: 12px;
+  border-left: 3px solid var(--blue-100);
+  color: var(--gray-600);
+}
+
+.markdown hr {
+  margin: 14px 0;
+  border: none;
+  border-top: 1px solid var(--gray-200);
+}
+
+/* Wide tables scroll inside the bubble rather than stretching it. */
+.markdown table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 0 10px;
+  border-collapse: collapse;
+  overflow-x: auto;
+  font-size: 13.5px;
+}
+
+.markdown th,
+.markdown td {
+  padding: 6px 10px;
+  border: 1px solid var(--gray-200);
+  text-align: left;
+}
+
+.markdown th {
+  background: var(--blue-50);
+  color: var(--blue-700);
+}
+
+/* ---------- Confidence badge ---------- */
+
+.badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badge--high {
+  background: #e4f4e8;
+  color: #1c6b34;
+}
+
+.badge--medium {
+  background: #fdf0d8;
+  color: #8a5a10;
+}
+
+.badge--low {
+  background: #eceff3;
+  color: var(--gray-600);
+}
+
+.badge--abstained {
+  background: var(--blue-100);
+  color: var(--blue-700);
+}
+
+/* ---------- Citations ---------- */
+
+.citations {
+  margin-top: 10px;
+  font-size: 12.5px;
+}
+
+.citations summary {
+  color: var(--blue-600);
+  cursor: pointer;
+}
+
+.citations ul {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.citations li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 9px;
+  border-radius: 7px;
+  background: var(--blue-50);
+}
+
+.citations__marker {
+  color: var(--blue-600);
+  font-weight: 600;
+}
+
+.citations__title {
+  flex: 1;
+}
+
+.citations__score {
+  color: var(--gray-600);
+  font-family: ui-monospace, monospace;
+}
+
+/* ---------- Composer ---------- */
+
+.composer {
+  display: flex;
+  gap: 10px;
+  padding: 14px 28px 20px;
+  background: var(--white);
+  border-top: 1px solid var(--gray-200);
+}
+
+.composer__input {
+  flex: 1;
+  padding: 11px 13px;
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14.5px;
+  resize: none;
+}
+
+.composer__input:focus {
+  outline: 2px solid var(--blue-600);
+  outline-offset: -1px;
+}
+
+.composer__send {
+  align-self: flex-end;
+  padding: 11px 24px;
+  border: none;
+  border-radius: 10px;
+  background: var(--blue-600);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.composer__send:hover:not(:disabled) {
+  background: var(--blue-700);
+}
+
+.composer__send:disabled,
+.composer__input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* A [1] reference in the answer text, tied to the Sources list below it. */
+.cite-marker {
+  display: inline-block;
+  min-width: 15px;
+  margin: 0 1px;
+  padding: 0 3px;
+  border-radius: 4px;
+  background: var(--blue-100);
+  color: var(--blue-700);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 15px;
+  text-align: center;
+  vertical-align: super;
+}

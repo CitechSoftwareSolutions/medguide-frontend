@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+dist/
+dist-ssr/
+build/
+
+# Local configuration and secrets
+# Vite inlines VITE_* variables into the bundle, so anything here ends up
+# public at build time; keep real secrets on the backend regardless.
+.env
+.env.*
+!.env.example
+*.local
+*.pem
+*.key
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Caches
+.cache/
+.vite/
+.eslintcache
+coverage/
+
+# IDEs and editors
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
