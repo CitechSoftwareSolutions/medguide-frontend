@@ -1,6 +1,16 @@
 /** Client for the backend's question-answering endpoint. */
 
-const ASK_URL = '/api/v1/agent/ask'
+/**
+ * Where the backend lives.
+ *
+ * Empty in development, so requests stay relative and the Vite proxy forwards
+ * them to the local API with no CORS involved. In production this is the
+ * deployed backend's origin, which makes the call cross-origin -- the backend
+ * allows it through CORSMiddleware.
+ */
+const API_BASE = (import.meta.env.VITE_API_BASE ?? '').replace(/\/$/, '')
+
+const ASK_URL = `${API_BASE}/api/v1/agent/ask`
 
 /** An error the backend reported through its `{error, message}` envelope. */
 export class ApiError extends Error {
